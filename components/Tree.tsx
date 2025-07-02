@@ -6,13 +6,15 @@ import { ChevronUp } from 'lucide-react';
 
 interface TreeProps {
     dataProp: ExplorerItem;
+    onAddItem: (folderId: string, name: string, isFolder: boolean) => void;
   }
-const Tree = ({ dataProp }: TreeProps) => {
+const Tree = ({ dataProp, onAddItem }: TreeProps) => {
     const [openFolders, setOpenFolders] = useState<Record<string, boolean>>({});
     const [showInput, setShowInput] = useState({
         visible: false,
         isFolder:false
-    })
+    });
+    const [inputText, setInputText] = useState("");
 
 
     const chevronType = (index: string)=>{
@@ -20,7 +22,6 @@ const Tree = ({ dataProp }: TreeProps) => {
     }
 
     const handleToggle = (index: string) => {
-        // setIsOpen(isOpen == index ? null : index)
         setOpenFolders((prev)=>({
             ...prev,
             [index]: !prev[index],
@@ -28,8 +29,6 @@ const Tree = ({ dataProp }: TreeProps) => {
     }
 //@ts-ignore
     const handleNewFolder = (e, isFolder) => {
-        // e.stopPropagation();
-        // setExpand(true);
         setShowInput({
           visible: !showInput.visible,
           isFolder
@@ -57,15 +56,28 @@ const Tree = ({ dataProp }: TreeProps) => {
                 </span>) }
             </div>
             {showInput.visible && (
-                <div className='flex gap-2 border p-2'>
+                <div className='flex gap-2 border p-2 ml-[20px]'>
                     {showInput.isFolder ? <Folder width={20} height={20}/> : <File width={20} height={20}/>}
-                    <input className='' type='text'/>
+                    <input type='text' 
+                    value={inputText} 
+                    onChange={(e)=>setInputText(e.target.value)}
+                    onKeyDown={(e)=>{
+                        if(e.key=='Enter' && inputText.trim() !=''){
+                            onAddItem(dataProp.id, inputText, showInput.isFolder);
+                            setShowInput({
+                                visible: false,
+                                isFolder: false
+                            })
+                            setInputText("");
+                        }
+                    }}
+                    />
                 </div>
             )}
             {dataProp.items.map((foldData) => {return (
                 
                 dataProp.isFolder && openFolders[dataProp.id] && (
-                    <Tree key={foldData.id} dataProp={foldData} />
+                    <Tree key={foldData.id} dataProp={foldData} onAddItem={onAddItem} />
                 )
             )})}
         </div>

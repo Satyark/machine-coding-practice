@@ -42,7 +42,7 @@ const TableMain = () => {
     useEffect(()=>{
       const handler = setTimeout(()=>{
         setDebounceSearch(search)
-      },500)
+      },1000)
 
       return ()=>{
         clearTimeout(handler);

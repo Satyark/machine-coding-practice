@@ -96,3 +96,26 @@ const explorer: ExplorerItem = {
   };
   
   export default explorer;
+
+  export const accordionData = [
+    {
+      id: 1,
+      title: "What is your return policy?",
+      content: "You can return any item within 30 days of purchase for a full refund.",
+    },
+    {
+      id: 2,
+      title: "Do you offer technical support?",
+      content: "Yes, we provide 24/7 technical support via chat, email, and phone.",
+    },
+    {
+      id: 3,
+      title: "How long does shipping take?",
+      content: "Shipping usually takes 3–5 business days, depending on your location.",
+    },
+    {
+      id: 4,
+      title: "Can I change my order after placing it?",
+      content: "Yes, you can modify your order within 1 hour of placing it.",
+    },
+  ];

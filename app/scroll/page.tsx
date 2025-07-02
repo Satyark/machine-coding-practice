@@ -1,4 +1,5 @@
 'use client'
+import Accordian from '@/components/Accordian'
 import InfiniteScrollV2 from '@/components/InfiniteScrollV2'
 import InifinteScroll from '@/components/InifinteScroll'
 import ProgressBar from '@/components/ProgressBar'
@@ -39,7 +40,9 @@ const Page = () => {
       <section>
         <ProgressBar value={progressValue} max={100} onStart={onStart} onComplete={onComplete} />
       </section>
-    </div>
+      <section>
+        <Accordian/>
+      </section>    </div>
   )
 }
 
